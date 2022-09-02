@@ -1,8 +1,6 @@
 from aiogram import types, Bot
 
-from .inline_keyboard import InlineKeyboard, Keyboard, RemoveKeyboard
-
-AnyKeyboard = Keyboard | InlineKeyboard | RemoveKeyboard
+from .keyboards import AnyKeyboard
 
 
 class UpdateContext:

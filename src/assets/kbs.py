@@ -1,7 +1,7 @@
-from core import InlineKeyboard, UrlButton, CallbackButton, Keyboard, RemoveKeyboard
+from core.keyboards import InlineKeyboard, UrlButton, CallbackButton, Keyboard, RemoveKeyboard
 
 
-class Menu(InlineKeyboard):
+class MainMenu(InlineKeyboard):
     anime_avatars = CallbackButton("⛩ Аниме авы")
     paired_avatars = CallbackButton("🎎 Парные аватарки")
     cute_pictures = CallbackButton("💖 Милые пикчи")

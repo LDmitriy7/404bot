@@ -1,6 +1,6 @@
 from core import UpdateContext
 from .start import start
-from ..assets import texts, kbs
+from assets import texts, kbs
 
 
 async def back_to_menu(ctx: UpdateContext):

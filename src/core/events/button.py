@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from aiogram import Dispatcher
 
 from .base_event import BaseEvent
-from ..inline_keyboard import CallbackButton
+from ..keyboards import CallbackButton
 
 
 @dataclass

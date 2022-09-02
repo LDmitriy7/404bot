@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 class CallbackButton:
@@ -30,24 +30,4 @@ class InlineKeyboard:
         self._raw.row(*raw_buttons)
 
     def adapt(self) -> InlineKeyboardMarkup:
-        return self._raw
-
-
-class Keyboard:
-    def __new__(cls, *args, **kwargs):
-        obj = super().__new__(cls)
-        obj._raw = ReplyKeyboardMarkup(resize_keyboard=True)
-        return obj
-
-    def add_row(self, *buttons: str):
-        self._raw.row(*buttons)
-
-    def adapt(self) -> ReplyKeyboardMarkup:
-        return self._raw
-
-
-class RemoveKeyboard:
-    _raw = ReplyKeyboardRemove()
-
-    def adapt(self) -> ReplyKeyboardRemove:
         return self._raw
