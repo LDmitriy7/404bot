@@ -1,4 +1,4 @@
-from core import InlineKeyboard, UrlButton, CallbackButton
+from core import InlineKeyboard, UrlButton, CallbackButton, Keyboard, RemoveKeyboard
 
 
 class Menu(InlineKeyboard):
@@ -14,3 +14,16 @@ class Menu(InlineKeyboard):
         self.add_row(add_to_chat)
         self.add_row(self.anime_avatars, self.paired_avatars)
         self.add_row(self.cute_pictures, self.aggressive_pictures)
+
+
+class PictureMenu(Keyboard):
+    get_another = '♻️ Хочу другую'
+    back_to_menu = '🔙 Меню'
+
+    def __init__(self):
+        self.add_row(self.get_another, self.back_to_menu)
+
+
+picture_menu = PictureMenu()
+
+remove = RemoveKeyboard()

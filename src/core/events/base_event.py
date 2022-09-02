@@ -1,9 +1,10 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+
+from aiogram import Dispatcher
 
 
 class BaseEvent(ABC):
-    pass
 
-    # @abstractmethod
-    # def as_decorator(self):
-    #     """ Returns aiogram decorator """
+    @abstractmethod
+    def adapt(self, dp: Dispatcher):
+        """ Return aiogram decorator """

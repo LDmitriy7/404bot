@@ -3,13 +3,12 @@ from dataclasses import dataclass
 from aiogram import Dispatcher
 
 from .base_event import BaseEvent
-from ..inline_keyboard import CallbackButton
 
 
 @dataclass
-class Button(BaseEvent):
-    value: CallbackButton
+class Text(BaseEvent):
+    value: str
     chat_type: str | list[str] = None
 
     def adapt(self, dp: Dispatcher):
-        return dp.callback_query_handler(text=self.value.data, chat_type=self.chat_type)
+        return dp.message_handler(text=self.value, chat_type=self.chat_type)
