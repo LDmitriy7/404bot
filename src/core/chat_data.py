@@ -1,7 +1,7 @@
 DATA_KEY = '__data__'
 
 
-class BaseStorage:
+class BaseChatData:
     def __init__(self, data: dict):
         self.__dict__[DATA_KEY] = {}
         self.__data__: dict

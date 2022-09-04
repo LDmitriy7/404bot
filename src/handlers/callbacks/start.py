@@ -1,5 +1,5 @@
-from core import UpdateContext
 from assets import texts, kbs
+from core import UpdateContext
 
 
 async def start(ctx: UpdateContext):
@@ -7,3 +7,7 @@ async def start(ctx: UpdateContext):
     text = texts.greeting.format(user_mention=user_mention)
     keyboard = kbs.MainMenu(ctx.me.username)
     await ctx.send_message(text, keyboard)
+
+
+async def group_start(ctx: UpdateContext):
+    await ctx.send_message(texts.group_greeting)

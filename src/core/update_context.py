@@ -1,12 +1,21 @@
+from typing import TypeVar
+
 from aiogram import types, Bot
 
+from .chat_data import BaseChatData
 from .keyboards import AnyKeyboard
+from .storage import BaseStorage
+
+StorageT = TypeVar('StorageT', bound=BaseStorage)
+ChatDataT = TypeVar('ChatDataT', bound=BaseChatData)
 
 
 class UpdateContext:
-    def __init__(self, bot: Bot, update: types.Update):
+    def __init__(self, bot: Bot, update: types.Update, storage: StorageT, chat_data: ChatDataT):
         self._bot = bot
         self._update = update
+        self.storage = storage
+        self.chat_data = chat_data
 
     @property
     def message(self):
@@ -44,9 +53,13 @@ class UpdateContext:
         reply_markup = keyboard.adapt() if keyboard else None
         return self._bot.send_message(self.chat.id, text, reply_markup=reply_markup)
 
-    def send_photo(self, photo: str, keyboard: AnyKeyboard = None):
+    def send_photo(self, photo_id: str, keyboard: AnyKeyboard = None):
         reply_markup = keyboard.adapt() if keyboard else None
-        return self._bot.send_photo(self.chat.id, photo, reply_markup=reply_markup)
+        return self._bot.send_photo(self.chat.id, photo_id, reply_markup=reply_markup)
+
+    def send_media_group(self, photo_ids: list[str]):
+        media = [types.InputMediaPhoto(media=i) for i in photo_ids]
+        return self._bot.send_media_group(self.chat.id, media=media)
 
     def delete_message(self):
         return self._bot.delete_message(self.chat.id, self.message.message_id)

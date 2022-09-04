@@ -93,6 +93,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "motor"
+version = "3.0.0"
+requires_python = ">=3.7"
+summary = "Non-blocking MongoDB driver for Tornado or asyncio"
+dependencies = [
+    "pymongo<5,>=4.1",
+]
+
+[[package]]
 name = "multidict"
 version = "6.0.2"
 requires_python = ">=3.7"
@@ -121,7 +130,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:249a48a2d11968105f35e4cd1c100373ded97a42fdf2cce854027c0c93470388"
+content_hash = "sha256:1d59ca474c91d560f49f1c6ec22c46152d7d5bc166b228e6f3489ef6349dd07a"
 
 [metadata.files]
 "aiogram 2.22.1" = [
@@ -297,6 +306,10 @@ content_hash = "sha256:249a48a2d11968105f35e4cd1c100373ded97a42fdf2cce854027c0c9
 "mongoengine 0.24.2" = [
     {url = "https://files.pythonhosted.org/packages/75/35/79f4cd5a939a26a058c0abdf9bde1fa707a215cb92d2e04cfd83e0eb591b/mongoengine-0.24.2.tar.gz", hash = "sha256:c76d49658575bb995682e2e77c8ef7cda63faf939415b32ee923745d120f8b02"},
     {url = "https://files.pythonhosted.org/packages/9c/58/65eca614167f17aa5d54b178c1a29ee317ad2a7684a11b3b901684b2fec8/mongoengine-0.24.2-py3-none-any.whl", hash = "sha256:f5c4e1b206b2ccffe4adc7a6283ed26dd799bd115a5fb1d2e885a075132cdb88"},
+]
+"motor 3.0.0" = [
+    {url = "https://files.pythonhosted.org/packages/84/00/3865aec63ed89170d879a13928cdeb5e452f50e23fcc82955bed446053aa/motor-3.0.0-py3-none-any.whl", hash = "sha256:b076de44970f518177f0eeeda8b183f52eafa557775bfe3294e93bda18867a71"},
+    {url = "https://files.pythonhosted.org/packages/fb/f5/7d7aff183c727bf3c69dd487a14bed2eb8603f267354048641df74761e0a/motor-3.0.0.tar.gz", hash = "sha256:3e36d29406c151b61342e6a8fa5e90c00c4723b76e30f11276a4373ea2064b7d"},
 ]
 "multidict 6.0.2" = [
     {url = "https://files.pythonhosted.org/packages/00/6f/05e5612827715de18f36a8e36fb373f58621927691213cc3f88dc24524b3/multidict-6.0.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:07a017cfa00c9890011628eab2503bee5872f27144936a52eaab449be5eaf032"},

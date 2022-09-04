@@ -1,18 +1,16 @@
-import inspect
-
 from aiogram import Bot, Dispatcher, executor, types
 
+from .chat_data import BaseChatData
 from .database import BaseDatabase
 from .handler import Handler, Callback
+from .storage import BaseStorage
 from .update_context import UpdateContext
-from .user_data import BaseUserData
 
 
 class App:
-    def __init__(self, bot_token: str, database: BaseDatabase):
+    def __init__(self, bot_token: str, db: BaseDatabase):
         self._bot = Bot(bot_token, parse_mode='html')
-        self._dp = Dispatcher(self._bot)
-        self._db = database
+        self._dp = Dispatcher(self._bot, storage=db.storage)
 
     def _setup_handlers(self, handlers: list[Handler]):
         for handler in handlers:
@@ -23,26 +21,36 @@ class App:
         decorator = event.adapt(self._dp)
         decorator(self._adapt_callback(handler.callback))
 
+    async def _make_storage(self):
+        raw_storage = self._dp.current_state()
+        storage_data = await raw_storage.get_data()
+        return BaseStorage(storage_data)
+
+    async def _make_chat_data(self):
+        chat = types.Chat.get_current()
+        chat_data = await self._dp.storage.get_data(chat=chat.id)
+        return BaseChatData(chat_data)
+
+    async def _save_storage(self, storage: BaseStorage):
+        raw_storage = self._dp.current_state()
+        await raw_storage.set_data(storage.__data__)
+
+    async def _save_chat_data(self, chat_data: BaseChatData):
+        chat = types.Chat.get_current()
+        await self._dp.storage.set_data(chat=chat.id, data=chat_data.__data__)
+
     def _adapt_callback(self, callback: Callback):
         async def wrapper(_):
             update = types.Update.get_current()
-            ctx = UpdateContext(self._bot, update)
-            args_count = count_args(callback)
-
-            if args_count == 1:
-                await callback(ctx)
-            elif args_count == 2:
-                await callback(ctx, self._db)
-            else:
-                await callback(ctx, self._db, BaseUserData())
+            storage = await self._make_storage()
+            chat_data = await self._make_chat_data()
+            ctx = UpdateContext(self._bot, update, storage, chat_data)
+            await callback(ctx)
+            await self._save_storage(storage)
+            await self._save_chat_data(chat_data)
 
         return wrapper
 
     def run(self, handlers: list[Handler]):
         self._setup_handlers(handlers)
         executor.start_polling(self._dp)
-
-
-def count_args(func):
-    full_args = inspect.getfullargspec(func)
-    return len(full_args.args)
