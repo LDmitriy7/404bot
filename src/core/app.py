@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from .chat_data import BaseChatData
 from .database import BaseDatabase
 from .handler import Handler, Callback
+from .handler_group import HandlerGroup
 from .storage import BaseStorage
 from .update_context import UpdateContext
 
@@ -12,7 +13,7 @@ class App:
         self._bot = Bot(bot_token, parse_mode='html')
         self._dp = Dispatcher(self._bot, storage=db.storage)
 
-    def _setup_handlers(self, handlers: list[Handler]):
+    def _setup_handlers(self, handlers: HandlerGroup):
         for handler in handlers:
             self._setup_handler(handler)
 
@@ -51,6 +52,6 @@ class App:
 
         return wrapper
 
-    def run(self, handlers: list[Handler]):
+    def run(self, handlers: HandlerGroup):
         self._setup_handlers(handlers)
         executor.start_polling(self._dp)

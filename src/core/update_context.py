@@ -1,21 +1,12 @@
-from typing import TypeVar
-
 from aiogram import types, Bot
 
-from .chat_data import BaseChatData
 from .keyboards import AnyKeyboard
-from .storage import BaseStorage
-
-StorageT = TypeVar('StorageT', bound=BaseStorage)
-ChatDataT = TypeVar('ChatDataT', bound=BaseChatData)
 
 
 class UpdateContext:
-    def __init__(self, bot: Bot, update: types.Update, storage: StorageT, chat_data: ChatDataT):
+    def __init__(self, bot: Bot, update: types.Update):
         self._bot = bot
         self._update = update
-        self.storage = storage
-        self.chat_data = chat_data
 
     @property
     def message(self):
