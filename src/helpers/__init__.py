@@ -1,0 +1,2 @@
+from .send_picture import send_random_picture
+from .setup_chat_commands import setup_chat_commands

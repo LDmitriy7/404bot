@@ -1,6 +1,7 @@
 import config
-from core import App
+from core import App, Bot
 from database import Database
 
 db = Database('404bot')
-app = App(config.BOT_TOKEN, db)
+bot = Bot(config.BOT_TOKEN)
+app = App(bot, db)

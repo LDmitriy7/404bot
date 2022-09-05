@@ -1,11 +1,16 @@
+import config
 from assets import texts, kbs
 from core import UpdateContext
+from helpers import setup_chat_commands
 
 
-def start(ctx: UpdateContext):
+async def start(ctx: UpdateContext):
+    if ctx.user.id in config.ADMINS_IDS:
+        await setup_chat_commands()
     if ctx.chat.type == 'private':
-        return default_start(ctx)
-    return group_start(ctx)
+        await default_start(ctx)
+    else:
+        await group_start(ctx)
 
 
 async def default_start(ctx: UpdateContext):

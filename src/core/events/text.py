@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from aiogram import Dispatcher, types
 
 from .base_event import BaseEvent
+from ..utils import listify
 
 
 @dataclass
@@ -21,13 +22,8 @@ class TextContainsWord(BaseEvent):
 
     def _filter(self, msg: types.Message):
         text_words = msg.text.lower().split()
-        search_words = self.value if isinstance(self.value, list) else [self.value]
-
-        for s in search_words:
-            if s.lower() in text_words:
-                return True
-
-        return False
+        search_words = [i.lower() for i in listify(self.value)]
+        return any(x in text_words for x in search_words)
 
     def adapt(self, dp: Dispatcher):
         return dp.message_handler(self._filter, chat_type=self.chat_type)

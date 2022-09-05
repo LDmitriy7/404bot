@@ -2,7 +2,7 @@ import mongoengine as me
 from aiogram.contrib.fsm_storage.mongo import MongoStorage
 
 from core import BaseDatabase
-from . import models
+from .models import Picture
 
 
 class Database(BaseDatabase):
@@ -10,18 +10,10 @@ class Database(BaseDatabase):
         self.storage = MongoStorage(db_name=name)
         me.connect(name)
 
-    @property
-    def anime_avatars(self) -> list[str]:
-        return [i.file_id for i in models.AnimeAvatar.find_all()]
+    @staticmethod
+    def get_pictures(category: str) -> list[Picture]:
+        return Picture.find_all(category=category)
 
-    @property
-    def paired_avatars(self) -> list[list[str]]:
-        return [i.file_ids for i in models.PairedAvatars.find_all()]
-
-    @property
-    def cute_pictures(self) -> list[str]:
-        return [i.file_id for i in models.CutePicture.find_all()]
-
-    @property
-    def angry_pictures(self) -> list[str]:
-        return [i.file_id for i in models.AngryPicture.find_all()]
+    @staticmethod
+    def add_picture(category: str, file_ids: list[str]):
+        Picture(category=category, file_ids=file_ids).save()

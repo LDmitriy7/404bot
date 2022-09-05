@@ -1,5 +1,6 @@
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import Dispatcher, executor, types
 
+from .bot import Bot
 from .chat_data import BaseChatData
 from .database import BaseDatabase
 from .handler import Handler, Callback
@@ -9,8 +10,8 @@ from .update_context import UpdateContext
 
 
 class App:
-    def __init__(self, bot_token: str, db: BaseDatabase):
-        self._bot = Bot(bot_token, parse_mode='html')
+    def __init__(self, bot: Bot, db: BaseDatabase):
+        self._bot = getattr(bot, '_raw')
         self._dp = Dispatcher(self._bot, storage=db.storage)
 
     def _setup_handlers(self, handlers: HandlerGroup):
@@ -45,7 +46,7 @@ class App:
             update = types.Update.get_current()
             storage = await self._make_storage()
             chat_data = await self._make_chat_data()
-            ctx = UpdateContext(self._bot, update, storage, chat_data)
+            ctx = UpdateContext(self._bot, update)
             await callback(ctx)
             await self._save_storage(storage)
             await self._save_chat_data(chat_data)

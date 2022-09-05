@@ -1,3 +1,5 @@
+from . import commands
+
 greeting = """
 ⛩  Привет, {user_mention}!
 
@@ -6,14 +8,14 @@ greeting = """
 Добавляй меня в свой чат или начинай пользоваться прямо здесь 😉
 """
 
-group_greeting = """
+group_greeting = f"""
 💕 Спасибо, что добавили меня!
 
 Я умею отправлять аватарки и пикчи для диалогов. Попробуй одну из этих команд:
 
-👉🏻 /get_avatars 👉🏻 /get_paired
-👉🏻 /get_cute 👉🏻 /get_angry
-👉🏻 /send_picture
+👉🏻 /{commands.GET_AVATARS} 👉🏻 /{commands.GET_PAIRED}
+👉🏻 /{commands.GET_CUTE} 👉🏻 /{commands.GET_ANGRY}
+👉🏻 /{commands.SEND_PICTURE}
 """
 
 picture_menu_hint = """

@@ -3,7 +3,7 @@ import typing
 
 import mongoengine as me
 
-DocT = typing.TypeVar('DocT', bound='BaseDocument')
+ModelT = typing.TypeVar('ModelT', bound=me.Document)
 
 
 class Model(me.Document):
@@ -12,11 +12,11 @@ class Model(me.Document):
     }
 
     @classmethod
-    def find(cls: type[DocT], *args, **kwargs) -> DocT | None:
+    def find(cls: type[ModelT], *args, **kwargs) -> ModelT | None:
         return cls.objects(*args, **kwargs).first()
 
     @classmethod
-    def find_all(cls: type[DocT], *args, **kwargs) -> list[DocT]:
+    def find_all(cls: type[ModelT], *args, **kwargs) -> list[ModelT]:
         return list(cls.objects(*args, **kwargs))
 
     def to_dict(self) -> dict:
