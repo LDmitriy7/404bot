@@ -17,3 +17,4 @@ class BaseChatData:
 
     def __str__(self):
         return f'ChatData({self.__data__})'
+
