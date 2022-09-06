@@ -1,4 +1,5 @@
-from core.keyboards import InlineKeyboard, UrlButton, CallbackButton, Keyboard, RemoveKeyboard
+from core.keyboards import InlineKeyboard, UrlButton, CallbackButton, Keyboard, RemovedKeyboard
+from .constants import PictureCategories
 
 
 class MainMenu(InlineKeyboard):
@@ -21,11 +22,13 @@ class PictureMenu(Keyboard):
     get_others = '♻️ Хочу другие'
     back_to_menu = '🔙 Меню'
 
-    def __init__(self, plural_word_forms: bool = False):
-        if plural_word_forms:
-            self.add_row(self.get_others, self.back_to_menu)
+    def __init__(self, picture_category: str):
+        if picture_category == PictureCategories.PAIRED_AVATARS:
+            get_another = self.get_others
         else:
-            self.add_row(self.get_another, self.back_to_menu)
+            get_another = self.get_another
+
+        self.add_row(get_another, self.back_to_menu)
 
 
-remove = RemoveKeyboard()
+removed = RemovedKeyboard()

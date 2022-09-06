@@ -1,3 +1,4 @@
+import warnings
 from pathlib import Path
 
 from envparse import Env as RawEnv, NOTSET
@@ -8,13 +9,13 @@ class Env:
     def __init__(self, path: str):
         self._path = Path(path)
         self._raw = RawEnv()
-        self._read_envfile()
+        self._read_file()
 
-    def _read_envfile(self):
+    def _read_file(self):
         path = self._path
 
         if not path.exists():
-            raise FileNotFoundError(path)
+            warnings.warn(f'File {path} not found')
 
         self._raw.read_envfile(path)
 

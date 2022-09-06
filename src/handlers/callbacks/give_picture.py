@@ -1,6 +1,6 @@
 from assets import PictureCategories
 from core import UpdateContext
-from helpers import send_random_picture
+from helpers import give_picture
 
 
 def give_anime_avatar(ctx: UpdateContext):
@@ -17,7 +17,3 @@ def give_cute_picture(ctx: UpdateContext):
 
 def give_angry_picture(ctx: UpdateContext):
     return give_picture(ctx, PictureCategories.ANGRY_PICTURE)
-
-
-async def give_picture(ctx: UpdateContext, category: str):
-    await send_random_picture(ctx, category)

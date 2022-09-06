@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardRemove
 
 
-class RemoveKeyboard:
+class RemovedKeyboard:
     _raw = ReplyKeyboardRemove()
 
     def adapt(self) -> ReplyKeyboardRemove:
