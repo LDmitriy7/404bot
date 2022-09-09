@@ -18,6 +18,11 @@ class UpdateContext:
             return query.message
 
     @property
+    def text(self):
+        if message := self.message:
+            return message.text
+
+    @property
     def query(self):
         update = self._update
 

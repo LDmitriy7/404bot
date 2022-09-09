@@ -8,6 +8,7 @@ from .chat_data import BaseChatData
 from .database import BaseDatabase
 from .handler import Handler, Callback
 from .handler_group import HandlerGroup
+from .start_params import BaseStartParams
 from .update_context import UpdateContext
 
 
@@ -49,6 +50,8 @@ class App:
             return self._create_context()
         if issubclass(arg_type, BaseChatData):
             return self._create_chat_data()
+        if issubclass(arg_type, BaseStartParams):
+            return self._create_start_params()
         raise TypeError(f'Invalid callback argument type: {arg_type}')
 
     def _create_context(self):
@@ -59,6 +62,13 @@ class App:
         chat = types.Chat.get_current()
         data = self._db.get_chat_data(chat.id)
         return BaseChatData(data)
+
+    def _create_start_params(self):
+        params = {}
+        message = types.Message.get_current()
+        if params_id := message.get_args():
+            params = self._db.get_start_params(params_id)
+        return BaseStartParams(params)
 
     def _save_callback_args(self, args: Iterable):
         for arg in args:

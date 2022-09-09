@@ -3,4 +3,4 @@ from core import UpdateContext
 
 
 async def test(ctx: UpdateContext, chat_data: ChatData):
-    await ctx.send_message(f'{chat_data.picture_category = }')
+    await ctx.send_message(str(chat_data))

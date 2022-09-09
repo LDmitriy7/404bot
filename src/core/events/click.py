@@ -7,7 +7,7 @@ from ..keyboards import CallbackButton
 
 
 @dataclass
-class Button(BaseEvent):
+class Click(BaseEvent):
     value: CallbackButton
     chat_type: str | list[str] = None
 

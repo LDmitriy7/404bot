@@ -14,5 +14,5 @@ USER_COMMANDS = [
     BotCommand(GET_PAIRED, 'Получить парные аватарки'),
     BotCommand(GET_CUTE, 'Получить милую пикчу'),
     BotCommand(GET_ANGRY, 'Получить агрессивную пикчу'),
-    BotCommand(SEND_PICTURE, 'Отправить пикчу пользователю')
+    BotCommand(SEND_PICTURE, 'Отправить пикчу другу')
 ]

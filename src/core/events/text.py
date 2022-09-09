@@ -8,7 +8,7 @@ from ..utils import listify
 
 @dataclass
 class Text(BaseEvent):
-    value: str | list[str]
+    value: str | list[str] = None
     chat_type: str | list[str] = None
 
     def adapt(self, dp: Dispatcher):

@@ -1,16 +1,22 @@
 import config
-from assets import texts, kbs
+from assets import texts, kbs, StartParams, StartModes, ChatData
 from core import UpdateContext
-from helpers import setup_chat_commands
+from helpers import setup_chat_commands, picture_for_friend
 
 
-async def start(ctx: UpdateContext):
+async def start(ctx: UpdateContext, params: StartParams, chat_data: ChatData):
     if ctx.user.id in config.ADMINS_IDS:
         await setup_chat_commands()
     if ctx.chat.type == 'private':
-        await default_start(ctx)
+        await private_start(ctx, params, chat_data)
     else:
         await group_start(ctx)
+
+
+def private_start(ctx: UpdateContext, params: StartParams, chat_data: ChatData):
+    if params.mode == StartModes.PICTURE_FOR_FRIEND:
+        return picture_for_friend.ask_user_name(ctx, params, chat_data)
+    return default_start(ctx)
 
 
 async def default_start(ctx: UpdateContext):

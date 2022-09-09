@@ -32,3 +32,21 @@ class PictureMenu(Keyboard):
 
 
 removed = RemovedKeyboard()
+
+
+class Link(InlineKeyboard):
+    def __init__(self, text: str, url: str):
+        button = UrlButton(text, url)
+        self.add_row(button)
+
+
+class PictureForFriendCategories(InlineKeyboard):
+    cute_pictures = CallbackButton("💖 Милые пикчи", 'PictureForFriendCategories:cute_pictures')
+    angry_pictures = CallbackButton("😡 Агрессивные", 'PictureForFriendCategories:angry_pictures')
+
+    def __init__(self):
+        self.add_row(self.cute_pictures)
+        self.add_row(self.angry_pictures)
+
+
+picture_for_friend_categories = PictureForFriendCategories()
