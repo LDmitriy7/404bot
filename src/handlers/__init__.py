@@ -1,8 +1,8 @@
 from core import HandlerGroup
-from .default import DEFAULT_HANDLERS
-from .send_picture import SEND_PICTURE_HANDLERS
+from .default import DEFAULT_GROUP
+from .send_picture import SEND_PICTURE_GROUP
 
 HANDLERS = HandlerGroup(
-    DEFAULT_HANDLERS,
-    SEND_PICTURE_HANDLERS,
+    DEFAULT_GROUP,
+    SEND_PICTURE_GROUP,
 )

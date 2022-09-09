@@ -1,12 +1,12 @@
 from core import HandlerGroup
-from .command import ON_COMMAND
-from .main_menu import ON_MAIN_MENU_CLICK
-from .picture_menu import ON_PICTURE_MENU_CLICK
-from .text_trigger import ON_TEXT_TRIGGER
+from .commands import COMMANDS_GROUP
+from .main_menu import MAIN_MENU_GROUP
+from .picture_menu import PICTURE_MENU_GROUP
+from .text_triggers import TEXT_TRIGGERS_GROUP
 
-DEFAULT_HANDLERS = HandlerGroup(
-    ON_COMMAND,
-    ON_MAIN_MENU_CLICK,
-    ON_PICTURE_MENU_CLICK,
-    ON_TEXT_TRIGGER,
+DEFAULT_GROUP = HandlerGroup(
+    COMMANDS_GROUP,
+    MAIN_MENU_GROUP,
+    PICTURE_MENU_GROUP,
+    TEXT_TRIGGERS_GROUP,
 )

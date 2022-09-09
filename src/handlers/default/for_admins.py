@@ -1,4 +1,4 @@
-import callbacks
+import actions
 import events
 from core import Handler, HandlerGroup
 
