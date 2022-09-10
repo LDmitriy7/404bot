@@ -7,3 +7,7 @@ class PictureCategories:
 
 class StartModes:
     PICTURE_FOR_FRIEND = 'picture_for_friend'
+
+
+class Scenes:
+    SEND_PICTURE = 'send_picture'

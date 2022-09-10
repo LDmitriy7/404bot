@@ -1,10 +1,13 @@
-from assets import ChatData, texts, StartParams, kbs
+from assets import ChatData, texts, kbs, StartParams, Storage, Scenes
 from core import UpdateContext
 
 
-async def ask_user_name(ctx: UpdateContext, params: StartParams, chat_data: ChatData):
-    chat_data.target_chat_id = params.target_chat_id
-    chat_data.mode = params.mode
+async def enter_scene(storage: Storage, params: StartParams):
+    storage.scene = Scenes.SEND_PICTURE
+    storage.target_chat_id = params.target_chat_id
+
+
+async def ask_name(ctx: UpdateContext):
     await ctx.send_message(texts.picture_for_friend.ask_user_name)
 
 

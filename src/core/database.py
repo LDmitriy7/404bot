@@ -28,6 +28,18 @@ class BaseDatabase:
         doc = StartParams(data=params).save()
         return str(doc.id)
 
+    @staticmethod
+    def get_storage_data(chat_id: int, user_id: int) -> dict:
+        key = StorageKey(chat_id=chat_id, user_id=user_id)
+        if doc := Storage.find(key=key):
+            return doc.data
+        return {}
+
+    @staticmethod
+    def set_storage_data(chat_id: int, user_id: int, data: dict):
+        key = StorageKey(chat_id=chat_id, user_id=user_id)
+        Storage(key=key, data=data).save()
+
 
 class ChatData(Model):
     chat_id: int = me.IntField(primary_key=True)
@@ -35,4 +47,14 @@ class ChatData(Model):
 
 
 class StartParams(Model):
+    data: dict = me.DictField()
+
+
+class StorageKey(me.EmbeddedDocument):
+    chat_id: int = me.IntField()
+    user_id: int = me.IntField()
+
+
+class Storage(Model):
+    key: StorageKey = me.EmbeddedDocumentField(StorageKey, primary_key=True)
     data: dict = me.DictField()

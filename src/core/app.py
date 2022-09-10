@@ -9,6 +9,7 @@ from .database import BaseDatabase
 from .handler import Handler, Callback
 from .handler_group import HandlerGroup
 from .start_params import BaseStartParams
+from .storage import BaseStorage
 from .update_context import UpdateContext
 
 
@@ -52,6 +53,8 @@ class App:
             return self._create_chat_data()
         if issubclass(arg_type, BaseStartParams):
             return self._create_start_params()
+        if issubclass(arg_type, BaseStorage):
+            return self._create_storage()
         raise TypeError(f'Invalid callback argument type: {arg_type}')
 
     def _create_context(self):
@@ -70,14 +73,27 @@ class App:
             params = self._db.get_start_params(params_id)
         return BaseStartParams(params)
 
+    def _create_storage(self):
+        chat = types.Chat.get_current()
+        user = types.User.get_current()
+        data = self._db.get_storage_data(chat.id, user.id)
+        return BaseStorage(data)
+
     def _save_callback_args(self, args: Iterable):
         for arg in args:
             if isinstance(arg, BaseChatData):
                 self._save_chat_data(arg)
+            if isinstance(arg, BaseStorage):
+                self._save_storage(arg)
 
     def _save_chat_data(self, chat_data: BaseChatData):
         chat = types.Chat.get_current()
         self._db.set_chat_data(chat.id, chat_data.__data__)
+
+    def _save_storage(self, storage: BaseStorage):
+        chat = types.Chat.get_current()
+        user = types.User.get_current()
+        self._db.set_storage_data(chat.id, user.id, storage.__data__)
 
 
 def get_arg_types(func: Callable) -> dict[str, type]:
